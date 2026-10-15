@@ -14,8 +14,12 @@ dados |> ggplot(aes(x=NU_NOTA_MT)) +
         theme_classic() +
         labs(x = "Notas", y = "Frequência")
 
-dados |> ggplot(mapping = aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
-         geom_point(na.rm = TRUE)
+dados |> ggplot(aes(x=NU_NOTA_REDACAO)) +
+        geom_histogram(fill = "#69b3a2", color="#e9ecef", alpha = 0.8) +
+        ggtitle("Histograma das notas de Redação ENEM 2025")+
+        theme_classic() +
+        labs(x = "Notas", y = "Frequência")
+
 
 
 dados |> filter(is.na(NU_NOTA_MT) & !is.na()) 
