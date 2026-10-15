@@ -1,2 +1,2 @@
 
-!(oi)[./imagens/1.png]
+![oi](./imagens/1.png)
