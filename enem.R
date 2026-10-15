@@ -6,7 +6,11 @@ dados <- read_delim("microdados_enem_2025/DADOS/RESULTADOS_2025.csv",
                     locale = locale(decimal_mark = '.', grouping_mark = ','))
 head(dados)
 
-dados$NU_NOTA_REDACAO|> hist(col="darkblue")
+dados |> ggplot(aes(x=NU_NOTA_MT)) +
+        geom_histogram(fill = "#69b3a2", color="#e9ecef", alpha = 0.8) +
+        ggtitle("Histograma das notas de Matemática ENEM 2025")+
+        theme_classic() +
+        labs(x = "Notas", y = "Frequência")
 
 dados |> ggplot(mapping = aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
          geom_point(na.rm = TRUE)
@@ -15,8 +19,7 @@ dados |> ggplot(mapping = aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
 dados |> filter(is.na(NU_NOTA_MT) & !is.na()) 
 
 dados |> ggplot( aes(x = NU_NOTA_MT)) +
-  geom_boxplot(na.rm = TRUE)
-
+  geom_boxplot(na.rm = TRUE, )
 
 #install.packages("fdth")
 library(fdth)
