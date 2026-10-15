@@ -1,5 +1,6 @@
+#install.packages("smplot2")
 library(tidyverse)
-
+library(smplot2)
 dados <- read_delim("microdados_enem_2025/DADOS/RESULTADOS_2025.csv",
                     delim = ';',
                     col_select = c(NU_NOTA_MT, NU_NOTA_REDACAO), 
@@ -20,14 +21,17 @@ dados |> ggplot(aes(x=NU_NOTA_REDACAO)) +
         theme_classic() +
         labs(x = "Notas", y = "Frequência")
 
+dados |> drop_na() |> ggplot(aes(x = NU_NOTA_MT, y = NU_NOTA_REDACAO)) +
+  geom_point( colour = "pink") +
+  ggtitle("Nota de Redação em função da nota de Matemática") +
+  theme_classic() + 
+  labs(x = "Notas de Matemática", y = "Nota de Redação") +
+  sm_statCorr(
+    color = "black", corr_method = "pearson",
+    linetype = "dashed"
+  )
+        
 
-
-dados |> filter(is.na(NU_NOTA_MT) & !is.na()) 
-
-dados |> ggplot( aes(x = NU_NOTA_MT)) +
-  geom_boxplot(na.rm = TRUE, )
-
-#install.packages("fdth")
 library(fdth)
 
 tabela <- fdt(dados$NU_NOTA_MT, na.rm=TRUE)
