@@ -1,10 +1,20 @@
+# Notas de Matemática ![histograma matemática](./imagens/2.png)
 
-![oi](./imagens/2.png)
+![tabela de frequencia](./imagens/tabela1.png)
 
-![segunda imagem](./imagens/1.png)
+![box plot de matemática](./imagens/4.png)
+
+![medidas resumos matematica](./imagens/medidas-resumos.png)
+
+# Notas de Redação
+
+![histograma redação](./imagens/1.png)
+
+![tabela de frequência](./imagens/tabela2.png)
+
+![boxplot redação](./imagens/5.png)
+
+![medidas resumos redação](./imagens/tabela2.png)
+# Análise bivariada
 
 ![terceira imagem](./imagens/3.png)
-
-![quarta imagem](./imagens/4.png)
-
-![quinta imagem](./imagens/5.png)

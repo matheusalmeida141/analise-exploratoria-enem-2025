@@ -57,10 +57,47 @@ dados |> drop_na() |> ggplot(aes(x = NU_NOTA_MT, y = NU_NOTA_REDACAO)) +
     linetype = "dashed"
   )
 
+################# TABELAS ###############################################
 
-nclass.Sturges(dados$NU_NOTA_MT)
-table(cut(dados$NU_NOTA_MT, seq(0, 1000, l = nclass.Sturges(dados$NU_NOTA_MT)))) 
+tabelaM <- as.data.frame(table(cut(dados$NU_NOTA_MT, seq(-0.9, 1000, l = nclass.Sturges(dados$NU_NOTA_MT)+6)))) |> 
+  rename(Notas = Var1, "Frequencia_Absoluta" = Freq) |> 
+  mutate("Frequência Relativa" = Frequencia_Absoluta/sum(Frequencia_Absoluta),
+         "Frequência Acumulada" = cumsum(Frequencia_Absoluta),
+         "Porcentagem" = 100*Frequencia_Absoluta/sum(Frequencia_Absoluta),
+         "Frequência Relativa Acumulada" = 100 * cumsum(Frequencia_Absoluta/sum(Frequencia_Absoluta))) |> 
+  filter(Frequencia_Absoluta != 0)
+write.csv(tabelaM, file = "tabelaM.csv")
 
-rstudiothemes::install_rstudiothemes()
+tabelaR <- as.data.frame(table(cut(dados$NU_NOTA_REDACAO, seq(-0.9, 1000, l = nclass.Sturges(dados$NU_NOTA_MT))))) |> 
+  rename(Notas = Var1, "Frequencia_Absoluta" = Freq) |> 
+  mutate("Frequência Relativa" = Frequencia_Absoluta/sum(Frequencia_Absoluta),
+         "Frequência Acumulada" = cumsum(Frequencia_Absoluta),
+         "Porcentagem" = 100*Frequencia_Absoluta/sum(Frequencia_Absoluta),
+         "Frequência Relativa Acumulada" = 100 * cumsum(Frequencia_Absoluta/sum(Frequencia_Absoluta)))
+
+write.csv(tabelaR, file = "tabelaR.csv")
 
 
+############### Cálculo de resumo ######
+
+t(as.data.frame(dados |> drop_na() |> summarise(Média = mean(NU_NOTA_MT),
+                                Mediana = median(NU_NOTA_MT),
+                                Desvio = sd(NU_NOTA_MT),
+                                min = min(NU_NOTA_MT),
+                                q1 = quantile(NU_NOTA_MT,0.25),
+                                q2 = quantile(NU_NOTA_MT,0.5),
+                                q3 = quantile(NU_NOTA_MT,0.75),
+                                max = max(NU_NOTA_MT),
+                                dq = q3 - q1
+                                ))
+)
+t(as.data.frame(dados |> drop_na() |> summarise(Média = mean(NU_NOTA_REDACAO),
+                                Mediana = median(NU_NOTA_REDACAO),
+                                Desvio = sd(NU_NOTA_REDACAO),
+                                min = min(NU_NOTA_REDACAO),
+                                q1 = quantile(NU_NOTA_REDACAO,0.25),
+                                q2 = quantile(NU_NOTA_REDACAO,0.5),
+                                q3 = quantile(NU_NOTA_REDACAO,0.75),
+                                max = max(NU_NOTA_REDACAO),
+                                dq = q3 - q1
+)))
