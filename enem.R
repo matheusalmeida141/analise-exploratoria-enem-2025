@@ -1,4 +1,4 @@
-#install.packages("smplot2")
+#install.packages(c("tidyverse"))
 library(tidyverse)
 library(smplot2)
 dados <- read_delim("microdados_enem_2025/DADOS/RESULTADOS_2025.csv",
@@ -45,11 +45,12 @@ dados |> drop_na() |>
   theme_minimal()+
   labs( x = "Notas")
 
+############################################
 
 dados |> drop_na() |> ggplot(aes(x = NU_NOTA_MT, y = NU_NOTA_REDACAO)) +
   geom_point( colour = "pink") +
   ggtitle("Nota de Redação em função da nota de Matemática") +
-  theme_classic() + 
+  theme_classic() +
   labs(x = "Notas de Matemática", y = "Nota de Redação") +
   sm_statCorr(
     color = "black", corr_method = "pearson",
@@ -57,10 +58,9 @@ dados |> drop_na() |> ggplot(aes(x = NU_NOTA_MT, y = NU_NOTA_REDACAO)) +
   )
 
 
-tabelaM <- as.data.frame(table(cut_interval(dados$NU_NOTA_MT, n = 15))) |> 
-  rename(Notas = Var1, ni = Freq) |> 
-    mutate(
-    Fr_pct = round(100 * Freq / sum(Freq), 2),
-    Fac = cumsum(Freq)
-  )
-tabelaM
+nclass.Sturges(dados$NU_NOTA_MT)
+table(cut(dados$NU_NOTA_MT, seq(0, 1000, l = nclass.Sturges(dados$NU_NOTA_MT)))) 
+
+rstudiothemes::install_rstudiothemes()
+
+

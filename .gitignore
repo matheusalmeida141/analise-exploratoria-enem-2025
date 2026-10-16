@@ -1,6 +1,6 @@
 *.csv
 microdados_enem_2025
 .Rproj.user
-trabalho.Rproj
+*.Rproj
 .READMe.md.swp
 .Rhistory
