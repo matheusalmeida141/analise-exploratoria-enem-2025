@@ -14,7 +14,7 @@
 
 ![boxplot redação](./imagens/5.png)
 
-![medidas resumos redação](./imagens/tabela2.png)
+![medidas resumos redação](./imagens/medidas-resumos2.png.png)
 # Análise bivariada
 
 ![terceira imagem](./imagens/3.png)
