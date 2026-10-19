@@ -101,3 +101,27 @@ t(as.data.frame(dados |> drop_na() |> summarise(Média = mean(NU_NOTA_REDACAO),
                                 max = max(NU_NOTA_REDACAO),
                                 dq = q3 - q1
 )))
+
+
+#### analise bivariada
+
+dados_filtrados <- dados |> drop_na() |> 
+  filter(NU_NOTA_MT >= 750)
+
+dados_filtrados |> ggplot(aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
+  geom_point(colour = "pink") +
+  theme_dark() +
+  ggtitle("Notas de Redação em função de Matemática (>= 750)") +
+  xlab("Notas de Matemática") +
+  ylab("Notas de Redação")
+
+
+dados_filtrados |> filter(NU_NOTA_REDACAO > 0) |> 
+  ggplot(aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
+  geom_point(colour = "pink") +
+  theme_dark() +
+  ggtitle("Notas de Redação em função de Matemática (>= 750)") +
+  xlab("Notas de Matemática") +
+  ylab("Notas de Redação")
+
+matematica.cut <- with(dados_filtrados, cut(NU_NOTA_MATEMATICA))
