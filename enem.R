@@ -59,13 +59,14 @@ dados |> drop_na() |> ggplot(aes(x = NU_NOTA_MT, y = NU_NOTA_REDACAO)) +
 
 ################# TABELAS ###############################################
 
-tabelaM <- as.data.frame(table(cut(dados$NU_NOTA_MT, seq(-0.9, 1000, l = nclass.Sturges(dados$NU_NOTA_MT)+6)))) |> 
+tabelaM <- as.data.frame(table(cut(dados$NU_NOTA_MT, seq(-0.9, 1000, l = 10)))) |> 
   rename(Notas = Var1, "Frequencia_Absoluta" = Freq) |> 
   mutate("Frequência Relativa" = Frequencia_Absoluta/sum(Frequencia_Absoluta),
          "Frequência Acumulada" = cumsum(Frequencia_Absoluta),
          "Porcentagem" = 100*Frequencia_Absoluta/sum(Frequencia_Absoluta),
          "Frequência Relativa Acumulada" = 100 * cumsum(Frequencia_Absoluta/sum(Frequencia_Absoluta))) |> 
   filter(Frequencia_Absoluta != 0)
+tabelaM
 write.csv(tabelaM, file = "tabelaM.csv")
 
 tabelaR <- as.data.frame(table(cut(dados$NU_NOTA_REDACAO, seq(-0.9, 1000, l = nclass.Sturges(dados$NU_NOTA_MT))))) |> 
