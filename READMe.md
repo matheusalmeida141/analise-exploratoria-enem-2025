@@ -6,6 +6,8 @@
 
 ![medidas resumos matematica](./imagens/medidas-resumos.png)
 
+![box splot estado](./imagens/estado-matematica.png)
+
 # Notas de Redação
 
 ![histograma redação](./imagens/1.png)
@@ -15,6 +17,9 @@
 ![boxplot redação](./imagens/5.png)
 
 ![medidas resumos redação](./imagens/medidas-resumos2.png)
+
+
+![box splot estado](./imagens/estado-redacao.png)
 # Análise bivariada
 
 Comparando as duas medidas resumos, podemos observar que os dados das notas de matemática são mais homogêneo que as notas de redação.
@@ -36,4 +41,4 @@ Ao olhar o gráfico ainda não há nenhum padrão, mas vemos que há pessoas que
 Olhando cada intervalo, podemos concluir que a maioria que foram bem em matemática de certa forma foram bem em redação.
 
 # Conclusão
-Logo sim, quem foi bem em matemática em 2025, foi bem em redação 
+Logo sim, quem foi bem em matemática em 2025, foi bem em redação.

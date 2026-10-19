@@ -3,7 +3,7 @@ library(tidyverse)
 library(smplot2)
 dados <- read_delim("microdados_enem_2025/DADOS/RESULTADOS_2025.csv",
                     delim = ';',
-                    col_select = c(NU_NOTA_MT, NU_NOTA_REDACAO), 
+                    col_select = c(NU_NOTA_MT, NU_NOTA_REDACAO, SG_UF_PROVA), 
                     locale = locale(decimal_mark = '.', grouping_mark = ','))
 
 dados <- dados |> drop_na()        
@@ -116,12 +116,40 @@ dados_filtrados |> ggplot(aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
   ylab("Notas de Redação")
 
 
-dados_filtrados |> filter(NU_NOTA_REDACAO > 0) |> 
-  ggplot(aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
-  geom_point(colour = "pink") +
+matematica.cut <- dados_filtrados |>  with(cut(NU_NOTA_MT, breaks = seq(749, 1000, l = 5)))
+redacao.cut <- dados_filtrados |>  with(cut(NU_NOTA_REDACAO, breaks = seq(-1, 1000, l = 5)))
+
+prop.table(table(matematica.cut, redacao.cut), margin = 2) * 100
+
+#### Estado
+
+dados_filtrados |> ggplot(aes(x=NU_NOTA_MT, y=NU_NOTA_REDACAO)) +
+  geom_point(aes(colour = SG_UF_PROVA)) +
   theme_dark() +
   ggtitle("Notas de Redação em função de Matemática (>= 750)") +
   xlab("Notas de Matemática") +
   ylab("Notas de Redação")
 
-matematica.cut <- with(dados_filtrados, cut(NU_NOTA_MATEMATICA))
+
+dados |> 
+  ggplot(aes( y = SG_UF_PROVA , x = NU_NOTA_MT))+
+  geom_boxplot(aes(colour = SG_UF_PROVA)) +
+  theme_dark()+
+  theme(legend.title = element_blank())+
+  xlab("Notas de Matemática") +
+  ylab("Estado") +
+  ggtitle("Boxplot de notas de Matemática em relação a cada estado em 2025")+
+  theme(legend.position = "right") +
+  stat_summary(fun = mean, geom = "point", shape = 8, size = 2, color = "red")
+  
+
+dados |> 
+  ggplot(aes( y = SG_UF_PROVA , x = NU_NOTA_REDACAO))+
+  geom_boxplot(aes(colour = SG_UF_PROVA)) +
+  theme_dark()+
+  theme(legend.title = element_blank())+
+  xlab("Notas de Redação")+
+  ylab("Estado") +
+  ggtitle("Boxplot de notas de Redação em relação a cada estado em 2025")+
+  theme(legend.position = "right") +
+  stat_summary(fun = mean, geom = "point", shape = 8, size = 2, color = "red")
