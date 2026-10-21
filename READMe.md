@@ -12,7 +12,7 @@
 
 ![histograma redação](./imagens/1.png)
 
-![tabela de frequência](./imagens/tabela2.png)
+![tabela de frequência](./imagens/table2.png)
 
 ![boxplot redação](./imagens/5.png)
 
